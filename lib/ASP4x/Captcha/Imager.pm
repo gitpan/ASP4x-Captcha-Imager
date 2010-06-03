@@ -8,7 +8,7 @@ use vars __PACKAGE__->VARS;
 use Imager;
 use Digest::MD5 'md5_hex';
 
-our $VERSION = '0.001';
+our $VERSION = '0.002';
 
 
 sub run
@@ -43,6 +43,8 @@ sub run
   # Add the word to the image, but make it hard to read:
   my @chars = split //, $word;
   my $charWidth = ( $img->getwidth * 0.8 ) / scalar(@chars);
+  my $charHeight = sprintf("%d", $img->getheight * 0.7);
+  
   for( 1..10 )
   {
     for my $idx ( 0..@chars - 1 )
@@ -56,7 +58,7 @@ sub run
         halign  => 'center',
         valign  => 'center',
         string  => $chars[$idx],
-        size    => 32,
+        size    => $charHeight,
         image   => $img,
         color   => $color,
         'x'     => ( $idx * $charWidth ) + int(rand() * 8) + $charWidth,
@@ -196,7 +198,6 @@ Render the Captcha image:
   use warnings 'all';
   use base 'ASP4::FormHandler';
   use vars __PACKAGE__->VARS;
-  use Digest::MD5 'md5_hex';
 
   sub run
   {
@@ -206,7 +207,7 @@ Render the Captcha image:
     my $code = lc($Form->{security_code});
     
     # It should exist in the session and have the correct value:
-    if( exists($Session->{asp4captcha}->{$code}) && md5_hex($code . $secret) eq $Session->{asp4captcha}->{$code} )
+    if( exists($Session->{asp4captcha}->{$code}) )
     {
       # Ding ding ding ding ding!
       $Response->Write("CORRECT");
