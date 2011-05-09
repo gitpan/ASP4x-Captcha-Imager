@@ -8,7 +8,7 @@ use vars __PACKAGE__->VARS;
 use Imager;
 use Digest::MD5 'md5_hex';
 
-our $VERSION = '0.002';
+our $VERSION = '0.003';
 
 
 sub run
@@ -76,7 +76,6 @@ sub run
   $Response->AddHeader( pragma => 'no-cache' );
   $Response->SetHeader('content-type' => 'image/png');
   $Response->ContentType( 'image/png' );
-  $Response->SetHeader('content-length' => length($str) );
   $Response->Write( $str );
 }# end run()
 

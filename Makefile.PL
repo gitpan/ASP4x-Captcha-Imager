@@ -11,7 +11,7 @@ all_from 'lib/ASP4x/Captcha/Imager.pm';
 test_requires 'Test::More'  => '0.77';
 test_requires 'HTML::Form'  => 0;
 
-requires 'ASP4'             => '1.024';
+requires 'ASP4'             => '1.046';
 requires 'Imager'           => '0.71';
 requires 'Digest::MD5'      => 0;
 
